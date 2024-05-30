@@ -1,0 +1,105 @@
+/**
+  |============================
+  | include css partials with
+  | default @import url()
+  |============================
+*/
+@import url('./reset.css');
+
+:root {
+  font-family: 'Montserrat', Inter, Avenir, Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+
+  color: #242424;
+  background-color: rgba(255, 255, 255, 0.87);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+.container {
+  width: 1158px;
+  padding: 36px 156px;
+}
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.gallery-item {
+  display: flex;
+  flex-direction: column;
+  width: 360px;
+  border: 1px solid #808080;
+  justify-content: space-between;
+}
+
+.gallery-image {
+  height: 272px;
+  object-fit: cover;
+}
+
+.captions {
+  display: flex;
+  text-align: center;
+  padding: 4px;
+}
+
+.form {
+  margin: 0 auto;
+  max-width: 370px;
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  margin-bottom: 32px;
+  padding: 8px 16px;
+}
+
+input {
+  width: 100%;
+  color: #808080;;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  border-radius: 4px;
+  border: 1px solid #808080;
+}
+
+input::placeholder {
+  color: #808080;
+  font-size: 16px;
+}
+
+button {
+  padding: 8px 16px;
+  border-radius: 8px;
+  background-color: #4E75FF;
+  color: #FFF;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  border: none;
+  min-width: 90px;
+  height: 40px;
+}
+
+button:hover,
+button:focus {
+  background-color: #6C8CFF;
+}
+
+.loader {
+  display: none;
+  margin-left: 436px;
+  color: #2E2F42;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+}
