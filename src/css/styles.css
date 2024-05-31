@@ -50,6 +50,7 @@
   display: flex;
   text-align: center;
   padding: 4px;
+  height: 48px;
 }
 
 .form {
@@ -77,7 +78,7 @@ input::placeholder {
   font-size: 16px;
 }
 
-button {
+.form-btn {
   padding: 8px 16px;
   border-radius: 8px;
   background-color: #4E75FF;
@@ -103,3 +104,21 @@ button:focus {
   line-height: 1.5;
   letter-spacing: 0.04em;
 }
+
+.more-btn {
+  display: none;
+  margin: 0 auto;
+  margin-bottom: 44px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  background-color: #4E75FF;
+  color: #FFF;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  border: none;
+  min-width: 125px;
+  height: 40px;
+}
+

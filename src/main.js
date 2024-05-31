@@ -7,15 +7,20 @@ import "izitoast/dist/css/iziToast.min.css";
 import Simplelightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
 
+
 const form = document.querySelector(".form");
 const gallery = document.querySelector(".gallery");
 const loader = document.querySelector(".loader");
+const moreButton = document.querySelector(".more-btn");
 
+let query = '';
+let page = 1;
+let totalHits = 0;
 
-form.addEventListener('submit', event => {
+form.addEventListener('submit', async event => {
     event.preventDefault();
 
-    const query = event.target.elements.query.value.trim();
+    query = event.target.elements.query.value.trim();
 
     if (!query) {
         iziToast.info({
@@ -26,10 +31,13 @@ form.addEventListener('submit', event => {
     }
 
     gallery.innerHTML = "";
+    page = 1;
+    totalHits = 0;
     loader.style.display = "block";
 
-    searchImage(query)
-        .then(data => {
+    try {
+        const data = await searchImage(query, page);
+        totalHits = data.totalHits;
             if (data.hits.length === 0) {
                 iziToast.error({
                     title: 'Error',
@@ -42,16 +50,59 @@ form.addEventListener('submit', event => {
                     captionsData: "alt",
                 });
                 lightbox.refresh();
+                if (data.hits.length < totalHits) {
+                    moreButton.style.display = "block";
+                }
             }
-        })
-        .catch(error => {
+        } catch(error) {
             iziToast.error({
                 title: 'Error',
                 message: 'Please try again later!',
             });
             console.log(error);
-        })
-        .finally(() => {
+        } finally {
             loader.style.display = "none";
+        };
+});
+
+
+
+
+moreButton.addEventListener("click", async () => {
+    page += 1;
+    loader.style.display = "block";
+    try {
+        const data = await searchImage(query, page);
+        const markup = imagesTemplate(data.hits);
+        gallery.insertAdjacentHTML('beforeend', markup);
+
+        let lightbox = new Simplelightbox(".gallery a", {
+            captionsData: "alt",
         });
+        lightbox.refresh();
+
+        const card = document.querySelector(".gallery-item");
+        const cardHeight = card.getBoundingClientRect().height;
+        window.scrollBy({
+            left: 0,
+            top: cardHeight * 2,
+            behavior: 'smooth'
+        });
+
+        if (gallery.children.length >= totalHits) {
+            moreButton.style.display = "none";
+            iziToast.info({
+            title: 'Note',
+            message: 'Please enter your search',
+        });
+        }
+    } catch (error) {
+        iziToast.error({
+            title: 'Error',
+            message: 'Please try again later!',
+        });
+        console.log(error);
+    } finally {
+        loader.style.display = "none";
+    }
 });
