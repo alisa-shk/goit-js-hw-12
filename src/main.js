@@ -50,7 +50,7 @@ form.addEventListener('submit', async event => {
                     captionsData: "alt",
                 });
                 lightbox.refresh();
-                if (data.hits.length < totalHits) {
+                if (totalHits > data.hits.length) {
                     moreButton.style.display = "block";
                 }
             }
@@ -64,7 +64,6 @@ form.addEventListener('submit', async event => {
             loader.style.display = "none";
         };
 });
-
 
 
 
@@ -93,7 +92,7 @@ moreButton.addEventListener("click", async () => {
             moreButton.style.display = "none";
             iziToast.info({
             title: 'Note',
-            message: 'Please enter your search',
+            message: "We're sorry, but you've reached the end of search results.",
         });
         }
     } catch (error) {
@@ -106,3 +105,4 @@ moreButton.addEventListener("click", async () => {
         loader.style.display = "none";
     }
 });
+
