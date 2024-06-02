@@ -17,6 +17,11 @@ let query = '';
 let page = 1;
 let totalHits = 0;
 
+
+let lightbox = new Simplelightbox(".gallery a", {
+    captionsData: "alt",
+});
+
 form.addEventListener('submit', async event => {
     event.preventDefault();
 
@@ -46,9 +51,6 @@ form.addEventListener('submit', async event => {
             } else {
                 const markup = imagesTemplate(data.hits);
                 gallery.innerHTML = markup;
-                let lightbox = new Simplelightbox(".gallery a", {
-                    captionsData: "alt",
-                });
                 lightbox.refresh();
                 if (totalHits > data.hits.length) {
                     moreButton.style.display = "block";
@@ -74,10 +76,6 @@ moreButton.addEventListener("click", async () => {
         const data = await searchImage(query, page);
         const markup = imagesTemplate(data.hits);
         gallery.insertAdjacentHTML('beforeend', markup);
-
-        let lightbox = new Simplelightbox(".gallery a", {
-            captionsData: "alt",
-        });
         lightbox.refresh();
 
         const card = document.querySelector(".gallery-item");
